@@ -15,7 +15,7 @@ conn = connect(credentials=credentials)
 
 # Perform SQL query on the Google Sheet.
 # Uses st.cache to only rerun when the query changes or after 10 min.
-# @st.cache(allow_output_mutation=True, max_entries=100)
+@st.cache(allow_output_mutation=True, max_entries=100)
 def run_query(query):
     rows = conn.execute(query, headers=1)
     return rows
@@ -25,5 +25,4 @@ rows = run_query(f'SELECT * FROM "{sheet_url}"')
 
 # Print results.
 for row in rows:
-
     st.write(f"Parsing website {row.website}")
